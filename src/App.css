@@ -13,6 +13,17 @@
   }
 }
 
+.title-bar {
+    height: 24px;
+    padding-top: 4px;
+    background-color: grey;
+    color: #fcfcfc;
+    text-align: center;
+
+    -webkit-app-region: drag;
+    -webkit-user-select: none;
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
