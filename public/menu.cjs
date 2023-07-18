@@ -1,4 +1,5 @@
 const { app, Menu, dialog } = require('electron');
+const { exec_query } = require('./db.cjs');
 
 const isMac = process.platform === 'darwin';
 
@@ -21,7 +22,7 @@ const template = [
                 { label: 'Open', accelerator: 'CommandOrControl+O', click: (menuItem, browserWindow, event) => {
                     dialog.showOpenDialog({
                         properties: ['openFile'],
-                        filter: [
+                        filters: [
                             { name: 'Databases', extensions: ['db'] },
                             { name: 'All files', extensions: ['*'] }
                         ]
@@ -30,11 +31,12 @@ const template = [
                             return;
                         }
 
-                        // TODO
                         const dbPath = response.filePaths[0];
 
-                        browserWindow.webContents.send('file-open-message', { 'path': dbPath });
-                    })
+                        exec_query(dbPath, "SELECT name FROM sqlite_schema WHERE type='table' AND name NOT LIKE 'sqlite_%'").then(tables => {
+                            browserWindow.webContents.send('file-open-message', { path: dbPath, tables });
+                        });
+                    });
                 } }
             ]
         }

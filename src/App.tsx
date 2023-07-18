@@ -7,10 +7,12 @@ const { ipcRenderer } = window.require('electron');
 
 function App() {
     let [ filePath, setFilePath ] = useState(null);
+    let [ tables, setTables ] = useState([]);
 
     ipcRenderer.on('file-open-message', (evt, message) => {
         setFilePath(message.path);
-    })
+        setTables(message.tables.map(t => <li>{t.name}</li>));
+    });
 
   return (
     <div className="App">
@@ -23,6 +25,9 @@ function App() {
           Edit <code>src/App.js</code> and save to reload.
         </p>
         <p>File path: {filePath ?? "unset"}</p>
+        <ul>
+            {tables}
+        </ul>
         <a
           className="App-link"
           href="https://reactjs.org"
