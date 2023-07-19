@@ -1,5 +1,5 @@
 const { app, Menu, dialog } = require('electron');
-const { exec_query } = require('./db.cjs');
+const { openFile } = require('./dialogs.cjs');
 
 const isMac = process.platform === 'darwin';
 
@@ -20,25 +20,13 @@ const template = [
     {
         label: 'File',
         submenu: [
-            { label: 'Open', accelerator: 'CommandOrControl+O', click: (menuItem, browserWindow, event) => {
-                dialog.showOpenDialog({
-                    properties: ['openFile'],
-                    filters: [
-                        { name: 'Databases', extensions: ['db'] },
-                        { name: 'All files', extensions: ['*'] }
-                    ]
-                    }).then((response) => {
-                    if (response.canceled) {
-                        return;
-                    }
-
-                    const dbPath = response.filePaths[0];
-
-                    exec_query(dbPath, "SELECT name FROM sqlite_schema WHERE type='table' AND name NOT LIKE 'sqlite_%'").then(tables => {
-                        browserWindow.webContents.send('file-open-message', { path: dbPath, tables });
-                    });
-                });
-            } }
+            {
+                label: 'Open', accelerator: 'CommandOrControl+O', click: async (menuItem, browserWindow, event) => {
+                    const data = await openFile(browserWindow);
+                    
+                    browserWindow.webContents.send('file-open-message', data);
+                }
+            }
         ]
     },
     ...(isMac ? [] : [toolsMenu]),

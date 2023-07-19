@@ -1,4 +1,5 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, ipcMain } = require('electron');
+const { openFile } = require('./dialogs.cjs');
 
 function createWindow() {
     const win = new BrowserWindow({
@@ -22,7 +23,14 @@ function createWindow() {
     //win.webContents.openDevTools();
 }
 
-app.whenReady().then(createWindow);
+app.whenReady().then(() => {
+    ipcMain.handle('file-open-request', async () => {
+        const data = await openFile();
+        return data;
+    });
+    
+    createWindow();
+});
 
 app.on('window-all-closed', () => {
     // if (process.platform !== 'darwin') {

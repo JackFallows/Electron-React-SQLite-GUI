@@ -1,28 +1,37 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
 import logo from './logo.svg';
+import Browser from './Browser.tsx';
 
 const { ipcRenderer } = window.require('electron');
 
 
 function App() {
-    let [ filePath, setFilePath ] = useState<string>(null);
-    let [ tables, setTables ] = useState<React.JSX.Element[]>([]);
+    let [ browser, setBrowser ] = useState<React.JSX.Element>(null);
+
+    function handle_opened_file(data) {
+      setBrowser(<Browser database={data.path} tables={data.tables} />)
+    }
+
+    async function request_open_file() {
+      const data = await ipcRenderer.invoke('file-open-request');
+      handle_opened_file(data);
+    }
+
+    let button = browser != null ? null : <button onClick={request_open_file}>Connect to database...</button>
 
     useEffect(() => {
       ipcRenderer.on('file-open-message', (evt, message) => {
-          setFilePath(message.path);
-          setTables((message.tables as { name: string }[]).map((t) => <li>{t.name}</li>));
+          handle_opened_file(message);
       });
     }, []); // empty array of dependencies means the effect will only run on first render
 
   return (
     <div className="App">
+        {button}
 
-        <p>File path: {filePath ?? "unset"}</p>
-        <ul>
-            {tables}
-        </ul>
+        {browser}
+
         
     </div>
   );
