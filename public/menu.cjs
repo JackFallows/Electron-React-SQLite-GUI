@@ -12,6 +12,7 @@ const template = [
                 { type: 'separator' },
                 { role: 'toggledevtools' },
                 { type: 'separator' },
+                { role: 'reload' },
                 { role: 'quit' }
             ]
         }]
