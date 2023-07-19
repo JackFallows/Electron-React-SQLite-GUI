@@ -1,6 +1,6 @@
 const sqlite3 = require("sqlite3");
 
-function exec_query(db_path, query) {
+function exec_query(db_path, query, ...params) {
     let db;
     let data = [];
 
@@ -14,7 +14,7 @@ function exec_query(db_path, query) {
         });
 
         function run_query() {
-            db.all(query, (err, rows) => {
+            db.all(query, ...params, (err, rows) => {
                 data = rows;
 
                 close();

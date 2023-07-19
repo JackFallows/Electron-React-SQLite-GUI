@@ -1,5 +1,6 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
 const { openFile } = require('./dialogs.cjs');
+const { exec_query } = require('./db.cjs');
 
 function createWindow() {
     const win = new BrowserWindow({
@@ -26,6 +27,11 @@ function createWindow() {
 app.whenReady().then(() => {
     ipcMain.handle('file-open-request', async () => {
         const data = await openFile();
+        return data;
+    });
+
+    ipcMain.handle('table-columns-request', async (evt, databasePath, tableName) => {
+        const data = await exec_query(databasePath, `PRAGMA table_info(${tableName})`);
         return data;
     });
     

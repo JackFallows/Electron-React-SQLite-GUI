@@ -1,3 +1,4 @@
+const path = require('path');
 const { dialog } = require('electron');
 const { exec_query } = require('./db.cjs');
 
@@ -18,7 +19,7 @@ async function openFile() {
 
     const tables = await exec_query(dbPath, "SELECT name FROM sqlite_schema WHERE type='table' AND name NOT LIKE 'sqlite_%'");
     
-    return { path: dbPath, tables };
+    return { path: dbPath, name: path.basename(dbPath), tables };
 }
 
 module.exports = {

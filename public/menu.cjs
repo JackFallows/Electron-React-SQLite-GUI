@@ -21,7 +21,7 @@ const template = [
         label: 'File',
         submenu: [
             {
-                label: 'Open', accelerator: 'CommandOrControl+O', click: async (menuItem, browserWindow, event) => {
+                label: 'Connect', accelerator: 'CommandOrControl+O', click: async (menuItem, browserWindow, event) => {
                     const data = await openFile(browserWindow);
                     
                     browserWindow.webContents.send('file-open-message', data);
