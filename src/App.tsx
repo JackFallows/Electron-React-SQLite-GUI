@@ -1,22 +1,18 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
 import logo from './logo.svg';
-import Browser from './Browser.tsx';
-import { BrowserContext } from './BrowserContext.ts';
+
+import Database from './Database.tsx';
 
 const { ipcRenderer } = window.require('electron');
 
 
 function App() {
-    let [ browser, setBrowser ] = useState<React.JSX.Element>(null);
+    let [ database, setDatabase ] = useState<React.JSX.Element>(null);
 
     function handleOpenedFile(data) {
-      setBrowser(
-        <>
-          <BrowserContext.Provider value={data.path}>
-            <Browser databaseName={data.name} tables={data.tables} />
-          </BrowserContext.Provider>
-        </>
+      setDatabase(
+        <Database databasePath={data.path} databaseName={data.name} tables={data.tables} />
       );
     }
 
@@ -25,7 +21,7 @@ function App() {
       handleOpenedFile(data);
     }
 
-    let button = browser != null ? null : <button onClick={requestOpenFile}>Connect to database...</button>
+    let button = database == null && <button onClick={requestOpenFile}>Connect to database...</button>
 
     useEffect(() => {
       ipcRenderer.on('file-open-message', (evt, message) => {
@@ -37,9 +33,7 @@ function App() {
     <div className="App">
         {button}
 
-        {browser}
-
-        
+        {database}
     </div>
   );
 }

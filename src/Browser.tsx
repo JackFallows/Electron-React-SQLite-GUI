@@ -1,5 +1,4 @@
-import React, { useContext } from 'react';
-import { BrowserContext } from './BrowserContext.ts';
+import React from 'react';
 import BrowserTable from './BrowserTable.tsx';
 
 type Props = {
@@ -8,10 +7,7 @@ type Props = {
 }
 
 export default function Browser({ databaseName, tables }: Props) {
-    const databasePath = useContext(BrowserContext);
-
     return <>
-        <p>File path: {databasePath}</p>
         <p>Name: {databaseName}</p>
         <ul>
             {tables.map(t =>

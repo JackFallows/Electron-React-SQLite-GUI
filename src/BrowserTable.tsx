@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { BrowserContext } from "./BrowserContext.ts";
+import { DatabaseContext } from "./DatabaseContext.ts";
 
 const { ipcRenderer } = window.require('electron');
 
@@ -17,7 +17,7 @@ type ColumnData = {
 }
 
 export default function BrowserTable({ tableName }: Props) {
-    const databasePath = useContext(BrowserContext);
+    const databasePath = useContext(DatabaseContext);
     let [ columns, setColumns ] = useState([]);
 
     async function requestTableColumns() {

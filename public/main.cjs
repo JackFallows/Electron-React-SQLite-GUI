@@ -31,7 +31,12 @@ app.whenReady().then(() => {
     });
 
     ipcMain.handle('table-columns-request', async (evt, databasePath, tableName) => {
-        const data = await exec_query(databasePath, `PRAGMA table_info(${tableName})`);
+        const data = await exec_query(databasePath, `PRAGMA table_xinfo(${tableName})`);
+        return data;
+    });
+
+    ipcMain.handle('execute-query', async (evt, databasePath, query) => {
+        const data = await exec_query(databasePath, query);
         return data;
     });
     
