@@ -1,3 +1,4 @@
+const path = require("path");
 const { app, BrowserWindow, ipcMain } = require('electron');
 const { openFile } = require('./dialogs.cjs');
 const { exec_query } = require('./db.cjs');
@@ -9,9 +10,7 @@ function createWindow() {
         // titleBarStyle: 'hidden',
         show: false,
         webPreferences: {
-            nodeIntegration: true,
-            enableRemoteModule: true,
-            contextIsolation: false
+            preload: path.join(__dirname, 'preload.cjs')
         }
     });
 

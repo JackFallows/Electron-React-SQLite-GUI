@@ -3,8 +3,6 @@ import { DatabaseContext } from "./DatabaseContext.ts";
 
 import Results from "./Results.tsx";
 
-const { ipcRenderer } = window.require('electron');
-
 export default function Editor() {
     const contentEditableRef = useRef(null);
     let [ results, setResults ] = useState<React.JSX.Element>(null);
@@ -17,7 +15,7 @@ export default function Editor() {
             return;
         }
 
-        const results = await ipcRenderer.invoke('execute-query', databasePath, query);
+        const results = await window.electronAPI.executeQuery(databasePath, query);
 
         setResults(
             <>

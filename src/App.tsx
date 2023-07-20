@@ -4,9 +4,6 @@ import logo from './logo.svg';
 
 import Database from './Database.tsx';
 
-const { ipcRenderer } = window.require('electron');
-
-
 function App() {
     let [ database, setDatabase ] = useState<React.JSX.Element>(null);
 
@@ -17,14 +14,14 @@ function App() {
     }
 
     async function requestOpenFile() {
-      const data = await ipcRenderer.invoke('file-open-request');
+      const data = await window.electronAPI.openFile();
       handleOpenedFile(data);
     }
 
     let button = database == null && <button onClick={requestOpenFile}>Connect to database...</button>
 
     useEffect(() => {
-      ipcRenderer.on('file-open-message', (evt, message) => {
+      window.electronAPI.handleOpenedFile((evt, message) => {
           handleOpenedFile(message);
       });
     }, []); // empty array of dependencies means the effect will only run on first render

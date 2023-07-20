@@ -1,19 +1,8 @@
 import React, { useContext, useState } from "react";
 import { DatabaseContext } from "./DatabaseContext.ts";
 
-const { ipcRenderer } = window.require('electron');
-
 type Props = {
     tableName: string;
-}
-
-type ColumnData = {
-    cid: number;
-    name: string;
-    type: string;
-    notnull: number;
-    dflt_value: string;
-    pk: number;
 }
 
 export default function BrowserTable({ tableName }: Props) {
@@ -25,7 +14,7 @@ export default function BrowserTable({ tableName }: Props) {
             return;
         }
 
-        const columnsData: ColumnData[] = await ipcRenderer.invoke('table-columns-request', databasePath, tableName);
+        const columnsData = await window.electronAPI.getTableColumns(databasePath, tableName);
 
         setColumns(columnsData.map(c => <li>{c.name}</li>))
     }
