@@ -2,7 +2,7 @@ import './App.css';
 import React, { useState, useEffect } from 'react';
 import logo from './logo.svg';
 
-import Database from './Database.tsx';
+import Database from './DatabaseConnection/Database.tsx';
 
 function App() {
     let [ database, setDatabase ] = useState<React.JSX.Element>(null);
