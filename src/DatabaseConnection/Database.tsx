@@ -5,9 +5,12 @@ import Editor from './Editor.tsx';
 import { DatabaseContext } from './DatabaseContext.ts';
 
 export default function Database({ databasePath, databaseName, tables }) {
-    return <DatabaseContext.Provider value={databasePath}>
-        <Browser databaseName={databaseName} tables={tables} />
+    return <div className="database">
+        <DatabaseContext.Provider value={databasePath}>
+            <Browser databaseName={databaseName} tables={tables} />
 
-        <Editor />
-    </DatabaseContext.Provider>
+            <Editor />
+        </DatabaseContext.Provider>
+    </div>
+    
 }

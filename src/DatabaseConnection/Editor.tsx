@@ -24,9 +24,9 @@ export default function Editor() {
           );
     }
     
-    return <>
+    return <div className="editor">
         <button onClick={execute_query}>Execute</button>
         <div style={{"border": "1px solid black"}} contentEditable ref={contentEditableRef}></div>
         {results}
-    </>
+    </div>
 }

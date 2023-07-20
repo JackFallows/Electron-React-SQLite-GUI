@@ -16,7 +16,7 @@ export default function BrowserTable({ tableName }: Props) {
 
         const columnsData = await window.electronAPI.getTableColumns(databasePath, tableName);
 
-        setColumns(columnsData.map(c => <li>{c.name}</li>))
+        setColumns(columnsData.map(c => <li key={c.cid}>{c.name}</li>))
     }
 
     return <li>

@@ -39,6 +39,20 @@
   color: #61dafb;
 }
 
+.database {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.database .browser {
+  flex-grow: 0;
+  width: 250px;
+}
+
+.database .editor {
+  flex-grow: 1;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

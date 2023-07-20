@@ -7,12 +7,12 @@ type Props = {
 }
 
 export default function Browser({ databaseName, tables }: Props) {
-    return <>
+    return <div className='browser'>
         <p>Name: {databaseName}</p>
         <ul>
             {tables.map(t =>
-                <BrowserTable tableName={t.name} />
+                <BrowserTable key={t.name} tableName={t.name} />
             )}
         </ul>
-    </>
+    </div>
 }
