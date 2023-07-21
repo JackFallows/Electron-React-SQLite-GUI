@@ -74,12 +74,16 @@
 }
 
 .database .editor .results {
+  width: calc(100vw - 272px);
   flex-grow: 0;
+}
+
+.database .editor .results .error {
+  color: red;
 }
 
 /* https://www.geeksforgeeks.org/how-to-create-a-table-with-fixed-header-and-scrollable-body/ */
 .fixTableHead {
-  width: calc(100vw - 272px);
   max-height: 50vh;
   overflow: auto;
 }

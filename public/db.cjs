@@ -15,6 +15,14 @@ function exec_query(db_path, query, ...params) {
 
         function run_query() {
             db.all(query, ...params, (err, rows) => {
+                if (err) {
+                    db.close(() => {
+                        reject(err);
+                    });
+
+                    return;
+                }
+
                 data = rows;
 
                 close();

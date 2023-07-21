@@ -15,13 +15,16 @@ export default function Editor() {
             return;
         }
 
-        const results = await window.electronAPI.executeQuery(databasePath, query);
-
-        setResults(
-            <div className="results">
-                <Results results={results} />
-            </div>
-          );
+        try {
+            const results = await window.electronAPI.executeQuery(databasePath, query);
+            setResults(
+                <Results results={results} message="Query executed successfully." success={true} />
+            );
+        } catch (err) {
+            setResults(
+                <Results message={`Query executed with errors\n${err}`} success={false} />
+            );
+        }
     }
 
     useEffect(() => {
