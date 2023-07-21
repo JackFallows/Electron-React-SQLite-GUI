@@ -4,6 +4,9 @@ contextBridge.exposeInMainWorld('electronAPI', {
     handleOpenedFile(callback) {
         ipcRenderer.on('file-open-message', callback)
     },
+    handleRunQuery(callback) {
+        ipcRenderer.on('run-query-message', callback);
+    },
     openFile() {
         return ipcRenderer.invoke('file-open-request');
     },

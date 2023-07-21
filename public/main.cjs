@@ -9,6 +9,8 @@ function createWindow() {
         // height: 600,
         // titleBarStyle: 'hidden',
         show: false,
+        minWidth: 800,
+        minHeight: 600,
         webPreferences: {
             preload: path.join(__dirname, 'preload.cjs')
         }

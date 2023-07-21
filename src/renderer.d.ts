@@ -15,6 +15,7 @@ export interface IColumnData {
 
 export interface IElectronAPI {
     handleOpenedFile: (callback: (evt, message) => void) => void;
+    handleRunQuery: (callback: (evt, message) => void) => void;
     openFile: () => Promise<IFileData>;
     getTableColumns: (dbPath: string, table: string) => Promise<IColumnData[]>;
     executeQuery: (dbPath: string, query: string) => Promise<any[]>;

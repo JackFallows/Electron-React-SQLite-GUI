@@ -8,6 +8,10 @@ const toolsMenu = {
     submenu: [
         { role: 'about' },
         { type: 'separator' },
+        { label: 'Run query', accelerator: 'F5', click: async (menuItem, browserWindow, event) => {
+            browserWindow.webContents.send('run-query-message');
+        } },
+        { type: 'separator' },
         { role: 'toggledevtools' },
         { type: 'separator' },
         { role: 'reload' },

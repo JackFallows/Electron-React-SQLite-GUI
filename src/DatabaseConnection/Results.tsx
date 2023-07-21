@@ -12,14 +12,19 @@ export default function Results({ results }: { results: any[] }) {
             </tr>)
         : null;
 
-    return <table>
-        <thead>
-            <tr>
-                {columns}
-            </tr>
-        </thead>
-        <tbody>
-            {rows}
-        </tbody>
-    </table>
+    return <>
+    <b>Results</b>
+    <div className="fixTableHead">
+        <table>
+            <thead>
+                <tr>
+                    {columns}
+                </tr>
+            </thead>
+            <tbody>
+                {rows}
+            </tbody>
+        </table>
+    </div>
+    </>
 }

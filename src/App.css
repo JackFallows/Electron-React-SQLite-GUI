@@ -1,5 +1,7 @@
 .App {
   /* text-align: center; */
+  height: 100vh;
+  overflow: hidden;
 }
 
 .App-logo {
@@ -40,6 +42,7 @@
 }
 
 .database {
+  height: 100%;
   display: flex;
   flex-wrap: nowrap;
 }
@@ -47,10 +50,55 @@
 .database .browser {
   flex-grow: 0;
   width: 250px;
+  height: 100%;
+  background-color: #eee;
+  padding: 5px;
 }
 
 .database .editor {
   flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+}
+
+.database .editor .query {
+  flex-grow: 1;
+}
+
+.database .editor .query > pre {
+  width: calc(100vw - 272px);
+  height: calc(100% - 10px);
+  margin: 0;
+  overflow: scroll;
+}
+
+.database .editor .results {
+  flex-grow: 0;
+}
+
+/* https://www.geeksforgeeks.org/how-to-create-a-table-with-fixed-header-and-scrollable-body/ */
+.fixTableHead {
+  width: calc(100vw - 272px);
+  max-height: 50vh;
+  overflow: auto;
+}
+.fixTableHead thead th {
+  position: sticky;
+  top: 0;
+  text-align: left;
+}
+table {
+  border-collapse: collapse;        
+  width: 100%;
+}
+th,
+td {
+  padding: 8px 15px;
+  border: 2px solid #529432;
+}
+th {
+  background: #ABDD93;
 }
 
 @keyframes App-logo-spin {
